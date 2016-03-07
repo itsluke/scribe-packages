@@ -14,6 +14,7 @@ module.exports = new Package('cssdoc', [require('../base')])
 .processor({ name: 'tags-extracted', $runAfter: ['extracting-tags'], $runBefore: ['processing-docs'] })
 
 // Add in the real processors for this package
+.processor(require('./processors/extractLESSDocComments'))
 .processor(require('./processors/extractCSSDocComments'))
 .processor(require('./processors/code-name'))
 .processor(require('./processors/parse-tags'))
@@ -29,12 +30,18 @@ module.exports = new Package('cssdoc', [require('../base')])
 
 .factory(require('./services/cssParser'))
 .factory(require('./file-readers/cssdoc'))
+.factory(require('./file-readers/lessdoc'))
 
 // Configure the processors
 
 .config(function(readFilesProcessor, cssdocFileReader) {
   readFilesProcessor.fileReaders = [cssdocFileReader].concat(readFilesProcessor.fileReaders || []);
 })
+
+.config(function(readFilesProcessor, lessdocFileReader) {
+  readFilesProcessor.fileReaders = [lessdocFileReader].concat(readFilesProcessor.fileReaders || []);
+})
+
 
 .config(function(parseTagsProcessor, getInjectables) {
   parseTagsProcessor.tagDefinitions = getInjectables(require('./tag-defs'));
@@ -46,9 +53,9 @@ module.exports = new Package('cssdoc', [require('../base')])
 
 .config(function(computeIdsProcessor) {
   computeIdsProcessor.idTemplates.push({
-    docTypes: ['css'],
+    docTypes: ['less'],
     getId: function(doc) {
-      var docPath = doc.name || doc.codeName;
+      var docPath = doc.name || doc.codeName; // color
       if ( !docPath ) {
         docPath = path.dirname(doc.fileInfo.relativePath);
         if ( doc.fileInfo.baseName !== 'index' ) {
@@ -65,7 +72,7 @@ module.exports = new Package('cssdoc', [require('../base')])
 
 .config(function(computePathsProcessor) {
   computePathsProcessor.pathTemplates.push({
-    docTypes: ['css'],
+    docTypes: ['less'],
     pathTemplate: '${id}',
     outputPathTemplate: '${path}.html'
   });

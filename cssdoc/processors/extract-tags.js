@@ -18,6 +18,7 @@ module.exports = function extractTagsProcessor(log, parseTagsProcessor, createDo
       docs.forEach(function(doc) {
         log.debug(createDocMessage('extracting tags', doc));
         tagExtractor(doc);
+        if ( doc.bem__block ) { doc.codeName = doc.bem__block.toLowerCase() };
       });
     }
   };

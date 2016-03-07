@@ -11,6 +11,8 @@ module.exports = function codeNameProcessor(log) {
         doc.codeName = doc.codeName || (doc.codeNode && findCodeName(doc.codeNode));
         if ( doc.codeName ) {
           log.silly('found codeName: ', doc.codeName);
+        } else {
+          log.silly('missing codeName: ', doc);
         }
       });
       return docs;
