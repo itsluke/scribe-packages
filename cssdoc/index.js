@@ -14,12 +14,12 @@ module.exports = new Package('cssdoc', [require('../base')])
 .processor({ name: 'tags-extracted', $runAfter: ['extracting-tags'], $runBefore: ['processing-docs'] })
 
 // Add in the real processors for this package
-.processor(require('./processors/extractLESSDocComments'))
-.processor(require('./processors/extractCSSDocComments'))
-.processor(require('./processors/code-name'))
-.processor(require('./processors/parse-tags'))
-.processor(require('./processors/extract-tags'))
-.processor(require('./processors/inline-tags'))
+.processor(require('./processors/extractLESSDocComments')) // After: ['files-read'], Before: ['parsing-tags']
+.processor(require('./processors/extractCSSDocComments'))  // After: ['files-read'], Before: ['parsing-tags']
+.processor(require('./processors/code-name')) // After: ['files-read'], Before: ['processing-docs']
+.processor(require('./processors/parse-tags')) // After: ['parsing-tags'], Before: ['tags-parsed']
+.processor(require('./processors/extract-tags'))  // After: ['extracting-tags'], Before: ['tags-extracted'],
+.processor(require('./processors/inline-tags')) // After: ['docs-rendered'], Before: ['writing-files']
 
 
 .factory(require('./services/transforms/extract-name'))
@@ -52,8 +52,11 @@ module.exports = new Package('cssdoc', [require('../base')])
 })
 
 .config(function(computeIdsProcessor) {
+
   computeIdsProcessor.idTemplates.push({
+
     docTypes: ['less'],
+
     getId: function(doc) {
       var docPath = doc.name || doc.codeName; // color
       if ( !docPath ) {
@@ -67,6 +70,27 @@ module.exports = new Package('cssdoc', [require('../base')])
     getAliases: function(doc) {
       return [doc.id];
     }
+
+  });
+
+  computeIdsProcessor.idTemplates.push({
+
+    docTypes: ['css'],
+
+    getId: function(doc) {
+      var docPath = doc.name || doc.codeName; // color
+      if ( !docPath ) {
+        docPath = path.dirname(doc.fileInfo.relativePath);
+        if ( doc.fileInfo.baseName !== 'index' ) {
+          docPath = path.join(docPath, doc.fileInfo.baseName);
+        }
+      }
+      return docPath;
+    },
+    getAliases: function(doc) {
+      return [doc.id];
+    }
+
   });
 })
 

@@ -15,13 +15,16 @@ module.exports = function computeIdsProcessor(log, aliasMap, createDocMessage) {
     getAliasesMap = new StringMap();
 
     idTemplates.forEach(function(template) {
+      log.silly( '* template docTypes: ', template.docTypes );
       if ( template.docTypes ) {
         template.docTypes.forEach(function(docType) {
 
           if ( template.getId ) {
+            log.silly( '* template getId: ', docType );
             getIdMap.set(docType, template.getId);
           } else if ( template.idTemplate ) {
-             getIdMap.set(docType, _.template(template.idTemplate));
+            log.silly( '* template idTemplate: ', template.idTemplate );
+            getIdMap.set(docType, _.template(template.idTemplate));
           }
 
           if ( template.getAliases ) {

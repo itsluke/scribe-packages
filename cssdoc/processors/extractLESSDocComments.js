@@ -17,7 +17,7 @@ var LEADING_STAR = /^[^\S\r\n]*\*[^\S\n\r]?/gm;
  * }
  * ```
  */
-module.exports = function extracLessCommentsProcessor() {
+module.exports = function extractLessCommentsProcessor( log ) {
   return {
     $runAfter: ['files-read'],
     $runBefore: ['parsing-tags'],
@@ -45,7 +45,7 @@ module.exports = function extracLessCommentsProcessor() {
             // Strip off any leading stars and
             // trim off leading and trailing whitespace
             var text = comment.value.replace(LEADING_STAR, '').trim();
-
+            log.info( '* doc fileInfo comments', doc.fileInfo.comments );
             // Create a doc from this comment
             commentDocs.push({
               fileInfo: doc.fileInfo,
