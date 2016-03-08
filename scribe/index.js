@@ -2,10 +2,10 @@ var path = require('canonical-path');
 var Package = require('dgeni').Package;
 
 /**
- * @dgPackage ngdoc
- * @description AngularJS specific tag-defs, processors and templates. This loads the jsdoc and nunjucks packages for you.
+ * @dgPackage scribe
+ * @description Scribe specific tag-defs, processors and templates. This loads the jsdoc and nunjucks packages for you.
  */
-module.exports = new Package('ngdoc', [
+module.exports = new Package('scribe', [
   require('../jsdoc'),
   require('../cssdoc'),
   require('../nunjucks'),
@@ -22,8 +22,8 @@ module.exports = new Package('ngdoc', [
 .processor(require('./processors/providerDocs'))
 
 
-.config(function(readFilesProcessor, ngdocFileReader) {
-  readFilesProcessor.fileReaders.push(ngdocFileReader);
+.config(function(readFilesProcessor, scribeFileReader) {
+  readFilesProcessor.fileReaders.push(scribeFileReader);
 })
 
 
