@@ -1,7 +1,7 @@
 {
-  "name": "scribe-dgeni-packages",
-  "version": "0.11.1",
-  "description": "A collection of dgeni packages for generating documentation from source code",
+  "name": "scribe-packages",
+  "version": "0.0.1",
+  "description": "A collection of frontend packages for generating documentation with dgeni",
   "scripts": {
     "test": "jasmine-node .",
     "cover": "istanbul cover jasmine-node -- .",
@@ -9,21 +9,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular/dgeni-packages.git"
+    "url": "https://github.com/itsluke/scribe-packages.git"
   },
   "keywords": [
-    "ngdoc",
-    "angular",
-    "angularjs",
+    "scribe",
     "dgeni",
+    "cssdoc",
     "document generation",
     "javascript",
     "jsdoc"
   ],
-  "author": "Pete Bacon Darwin",
+  "author": "Luke Ngakane",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/angular/dgeni-packages/issues"
+    "url": "https://github.com/itsluke/scribe-packages/issues"
   },
   "peerDependencies": {
     "dgeni": "^0.4.0"
@@ -57,31 +56,6 @@
     "rewire": "~2.0.0"
   },
   "contributors": [
-    "Peter Bacon Darwin <pete@bacondarwin.com>",
-    "Stéphane Reynaud <forresst@voila.fr>",
-    "Andy Joslin <andytjoslin@gmail.com>",
-    "Pascal Precht <pascal.precht@googlemail.com>",
-    "Julie <ju.ralph@gmail.com>",
-    "Jim Cummins <jim.for.cy@gmail.com>",
-    "Andrew Joslin <andytjoslin@gmail.com>",
-    "thorn0 <thorn.mailbox@gmail.com>",
-    "kevinrowe <kevinrowe@outlook.com>",
-    "Pete Bacon Darwin <pete@bacondarwin.com>",
-    "Matthew Harris <ftmomatt@gmail.com>",
-    "Konstantinos Rousis <rousisk@gmail.com>",
-    "Tobias Bosch <tbosch1009@gmail.com>",
-    "Thor Jacobsen <freak.tm@gmail.com>",
-    "<thorn.mailbox@gmail.com>",
-    "Lucas Galfaso <lgalfaso@gmail.com>",
-    "Tim Kendrick <timkendrick@gmail.com>",
-    "Marcin Wosinek <marcin.wosinek@gmail.com>",
-    "MaartenVerbaarschot <m.vbschot@gmail.com>",
-    "Martin Staffa <mjstaffa@googlemail.com>",
-    "Jacob Eggers <eggers@brandeis.edu>",
-    "Shai Resnik <shai.reznik@gmail.com>",
-    "Brian Hann <emailc0bra@gmail.com>",
-    "Matt Fairbrass <matt.fairbrass@gmail.com>",
-    "Keir Lawson <keirlawson@gmail.com>",
-    "Yair Leviel <yleviel@akamai.com>"
+    "Luke Ngakane <hello@luke.ng>"
   ]
 }

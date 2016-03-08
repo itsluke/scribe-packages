@@ -1,6 +1,5 @@
 var _ = require('lodash');
 var INLINE_TAG = /(\{@[^\s\}]+[^\}]*\})/;
-                        //  11111111     22222222
 var INLINE_TAG_DETAIL = /\{@([^\s]+)\s*([^\}]*)\}/;
 var StringMap = require('stringmap');
 

@@ -1,4 +1,7 @@
 module.exports = [
+  require('./--modifiers'),
+  require('./__element'),
+  require('./block'),
   require('./animations'),
   require('./deprecated'),
   require('./description'),
@@ -14,8 +17,8 @@ module.exports = [
   require('./private'),
   require('./property'),
   require('./requires'),
+  require('./returns'),
   require('./see'),
-  require('./state'),
   require('./type'),
-  require('./usage')
+  require('./usage'),
 ];
