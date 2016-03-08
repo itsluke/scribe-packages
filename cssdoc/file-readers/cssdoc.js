@@ -11,9 +11,10 @@ module.exports = function cssdocFileReader(log, cssParser) {
     name: 'cssdocFileReader',
     defaultPattern: /\.css$/,
     getDocs: function(fileInfo) {
-
+      // log.info( 'fileInfo:', fileInfo )
+      // log.info( 'fileInfo filePath:', fileInfo.filePath )
       try {
-        fileInfo.ast = cssParser(fileInfo.content);
+        fileInfo.ast = cssParser(fileInfo.content, fileInfo.relativePath );
       } catch(ex) {
        ex.file = fileInfo.filePath;
         throw new Error(

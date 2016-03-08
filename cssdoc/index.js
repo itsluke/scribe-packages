@@ -18,7 +18,7 @@ module.exports = new Package('cssdoc', [
 
 // Add in the real processors for this package
 .processor(require('./processors/extractCSSDocComments'))  // After: ['files-read'], Before: ['parsing-tags']
-.processor(require('./processors/code-name')) // After: ['files-read'], Before: ['processing-docs']
+// .processor(require('./processors/code-name')) // After: ['files-read'], Before: ['processing-docs']
 .processor(require('./processors/parse-tags')) // After: ['parsing-tags'], Before: ['tags-parsed']
 .processor(require('./processors/extract-tags'))  // After: ['extracting-tags'], Before: ['tags-extracted'],
 .processor(require('./processors/inline-tags')) // After: ['docs-rendered'], Before: ['writing-files']

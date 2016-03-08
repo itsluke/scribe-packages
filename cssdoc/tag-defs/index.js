@@ -1,5 +1,6 @@
 module.exports = [
   require('./animations'),
+  require('./css'),
   require('./deprecated'),
   require('./description'),
   require('./function'),
@@ -10,6 +11,7 @@ module.exports = [
   require('./method'),
   require('./name'),
   require('./namespace'),
+  require('./modifiers'),
   require('./param'),
   require('./private'),
   require('./property'),

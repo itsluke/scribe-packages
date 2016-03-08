@@ -1,8 +1,6 @@
 module.exports = function(extractTypeTransform, extractNameTransform, wholeTagTransform) {
   return {
-    name: 'state',
-    multi: true,
-    docProperty: 'states',
+    name: 'css',
     transforms: [ extractNameTransform, wholeTagTransform ]
   };
 };

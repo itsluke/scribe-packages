@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var traverse = require('estraverse').traverse;
+var traverse = require('gonzales-ast').traverse;
 var LEADING_STAR = /^[^\S\r\n]*\*[^\S\n\r]?/gm;
 
 /**
@@ -23,7 +23,7 @@ var LEADING_STAR = /^[^\S\r\n]*\*[^\S\n\r]?/gm;
  * }
  * ```
  */
-module.exports = function extractCSSDocCommentsProcessor() {
+module.exports = function extractCSSDocCommentsProcessor( log ) {
   return {
     $runAfter: ['files-read'],
     $runBefore: ['parsing-tags'],
@@ -38,32 +38,35 @@ module.exports = function extractCSSDocCommentsProcessor() {
 
       // Extract all the `cssFile` docs from the docs collection
       docs = _.filter(docs, function(doc) {
-
+        
         if ( doc.docType !== 'cssFile' ) {
           return true;
         }
-
+        
         // Generate a doc for each cssdoc style comment
-        _.forEach(doc.fileInfo.ast.comments, function(comment) {
+        _.forEach(doc.fileInfo.ast.rules, function(rule) {
 
           // To test for a cssdoc comment (i.e. starting with /** ), we need to check for a
           // star in the first character since the parser strips off the "/*" comment identifier
-          if ( comment.type === 'Block' && comment.value.charAt(0) === '*' ) {
+          if ( rule.type === 'comment' && rule.comment.charAt(0) === '*' ) {
             // Strip off any leading stars and
             // trim off leading and trailing whitespace
-            var text = comment.value.replace(LEADING_STAR, '').trim();
+            var text = rule.comment.replace(LEADING_STAR, '').trim();
 
             // Extract the information about the code directly after this comment
-            var codeLocation = findNodeAfter(doc.fileInfo.ast, comment.range[1]);
+
+            // var codeLocation = findNodeAfter(doc.fileInfo.ast.rules, rule);
+            // log.silly( '>>>>>>');
+            // log.info( 'codeLocation', codeLocation )
 
             // Create a doc from this comment
             commentDocs.push({
               fileInfo: doc.fileInfo,
-              startingLine: comment.loc.start.line,
-              endingLine: comment.loc.end.line,
+              startingLine: rule.position.start.line,
+              endingLine: rule.position.end.line,
               content: text,
-              codeNode: codeLocation.node,
-              codeAncestors: codeLocation.path,
+              // codeNode: codeLocation.node,
+              // codeAncestors: codeLocation.path,
               docType: 'css'
             });
           }
